@@ -1,6 +1,5 @@
 package ua.od.game.model;
 
-import java.util.List;
 import java.util.Map;
 
 /**@author Mazovskiy Mihail
@@ -8,7 +7,6 @@ import java.util.Map;
 
 public class CardEntity {
 
-    private Integer id;
     private Integer cardId;
     private Integer groupId;
     private String name;
@@ -22,15 +20,7 @@ public class CardEntity {
     private Map<Integer, Float> necessaryBuildings;
     private Map<Integer, Float> necessaryUpgrades;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getCardId() {
+        public Integer getCardId() {
         return cardId;
     }
 

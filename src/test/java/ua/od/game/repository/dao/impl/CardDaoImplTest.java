@@ -30,6 +30,23 @@ public class CardDaoImplTest extends DbTest {
             System.out.print(cards.get(i).getGroupId() + " ");
             System.out.print(cards.get(i).getName() + " ");
             System.out.println(cards.get(i).getDescription()+ " ");
+            System.out.print("P 1 Buildings: " + cards.get(i).getP1Buildings().keySet() + " ");
+            System.out.println(cards.get(i).getP1Buildings().values() + " ");
+            System.out.print("P 2 Buildings: " + cards.get(i).getP2Buildings().keySet() + " ");
+            System.out.println(cards.get(i).getP2Buildings().values() + " ");
+            System.out.print("P 1 Resources: " + cards.get(i).getP1Resources().keySet() + " ");
+            System.out.println(cards.get(i).getP1Resources().values() + " ");
+            System.out.print("P 1 Resources: " + cards.get(i).getP2Resources().keySet() + " ");
+            System.out.println(cards.get(i).getP2Resources().values() + " ");
+            System.out.print("P 1 Upgrades: " + cards.get(i).getP1Upgrades().keySet() + " ");
+            System.out.println(cards.get(i).getP1Upgrades().values() + " ");
+            System.out.print("P 2 Upgrades: " + cards.get(i).getP2Upgrades().keySet() + " ");
+            System.out.println(cards.get(i).getP2Upgrades().values() + " ");
+            System.out.print("Necessary Buildings: " + cards.get(i).getNecessaryBuildings().keySet() + " ");
+            System.out.println(cards.get(i).getNecessaryBuildings().values() + " ");
+            System.out.print("Necessary Upgrades: " + cards.get(i).getNecessaryUpgrades().keySet() + " ");
+            System.out.println(cards.get(i).getNecessaryUpgrades().values() + " ");
+            System.out.println();
         }
         if (!cards.isEmpty())
         assertTrue(true);

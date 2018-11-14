@@ -13,54 +13,61 @@ import java.util.*;
  */
 public class CardDaoImpl implements CardDao {
 
-    private final String GET_CARD_LIST_QUERY = new StringBuilder()
-            .append("SELECT card_product.card_id, card_group_id, card.name, card.description, ")
-                    .append("GROUP_CONCAT(DISTINCT card_product.p1_building_id) AS p1_building_id, ")
-                    .append("GROUP_CONCAT(card_product.p1_building_number) AS p1_building_number, ")
-                    .append("GROUP_CONCAT(DISTINCT card_product.p2_building_id) AS p2_building_id, ")
-                    .append("GROUP_CONCAT(card_product.p2_building_number) AS p2_building_number, ")
-                    .append("GROUP_CONCAT(DISTINCT card_product.p1_upgrade_id) AS p1_upgrade_id, ")
-                    .append("GROUP_CONCAT(card_product.p1_upgrade_number) AS p1_upgrade_number, ")
-                    .append("GROUP_CONCAT(DISTINCT card_product.p2_upgrade_id) AS p2_upgrade_id, ")
-                    .append("GROUP_CONCAT(card_product.p2_upgrade_number) AS p2_upgrade_number, ")
-                    .append("GROUP_CONCAT(DISTINCT card_product.p1_resource_id) AS p1_resource_id, ")
-                    .append("GROUP_CONCAT(card_product.p1_resource_number) AS p1_resource_number, ")
-                    .append("GROUP_CONCAT(DISTINCT card_product.p2_resource_id) AS p2_resource_id, ")
-                    .append("GROUP_CONCAT( card_product.p2_resource_number) AS p2_resource_number, ")
-                    .append("GROUP_CONCAT(DISTINCT card_product.necessary_building_id) AS necessary_building_id, ")
-                    .append("GROUP_CONCAT(card_product.necessary_building_number) AS necessary_building_number, ")
-                    .append("GROUP_CONCAT(DISTINCT card_product.necessary_upgrade_id) AS necessary_upgrade_id, ")
-                    .append("GROUP_CONCAT(card_product.necessary_upgrade_number) AS necessary_upgrade_number ")
-            .append("FROM card_product LEFT JOIN card ON card_product.card_id = card.id GROUP BY card_id")
-            .toString();
+    private final String GET_CARD_LIST_QUERY = "SELECT * " +
+            "FROM card_product JOIN card ON card_product.card_id = card.id " +
+            "ORDER by card_id";
 
     public List<CardEntity> getAllCardList() {
         return SqlHelper.prepareStatement(GET_CARD_LIST_QUERY, statementForRoomList -> {
             ResultSet cardResultSet = statementForRoomList.executeQuery();
             List<CardEntity> card = new LinkedList<>();
             while (cardResultSet.next()) {
+                Integer currentCardId = cardResultSet.getInt("card_id");
                 card.add(new CardEntity() {{
                     setCardId(cardResultSet.getInt("card_id"));
                     setGroupId(cardResultSet.getInt("card_group_id"));
                     setName(cardResultSet.getString("name"));
                     setDescription(cardResultSet.getString("description"));
-
-                    String[] parsedP1BuildingId = cardResultSet.getString("p1_building_id").split(",");
-                    String[] parsedP1BuildingNumber = cardResultSet.getString("p1_building_number").split(",");
-                    setP1Buildings(parseToMap(parsedP1BuildingId, parsedP1BuildingNumber));
-                }});
+                    Map<Integer,Float> tempP1Buildings = new HashMap<>();
+                    Map<Integer,Float> tempP2Buildings = new HashMap<>();
+                    Map<Integer,Float> tempP1Resources = new HashMap<>();
+                    Map<Integer,Float> tempP2Resources = new HashMap<>();
+                    Map<Integer,Float> tempP1Upgrades = new HashMap<>();
+                    Map<Integer,Float> tempP2Upgrades = new HashMap<>();
+                    Map<Integer,Float> tempNecessaryBuildings = new HashMap<>();
+                    Map<Integer,Float> tempNecessaryUpgrades = new HashMap<>();
+                    while (currentCardId.equals(cardResultSet.getInt("card_id")) && cardResultSet.next()) {
+                        cardResultSet.previous();
+                        tempP1Buildings.put(cardResultSet.getInt("p1_building_id"),
+                                cardResultSet.getFloat("p1_building_number"));
+                        tempP2Buildings.put(cardResultSet.getInt("p2_building_id"),
+                                cardResultSet.getFloat("p2_building_number"));
+                        tempP1Resources.put(cardResultSet.getInt("p1_resource_id"),
+                                cardResultSet.getFloat("p1_resource_number"));
+                        tempP2Resources.put(cardResultSet.getInt("p2_resource_id"),
+                                cardResultSet.getFloat("p2_resource_number"));
+                        tempP1Upgrades.put(cardResultSet.getInt("p1_upgrade_id"),
+                                cardResultSet.getFloat("p1_upgrade_number"));
+                        tempP2Upgrades.put(cardResultSet.getInt("p2_upgrade_id"),
+                                cardResultSet.getFloat("p2_upgrade_number"));
+                        tempNecessaryBuildings.put(cardResultSet.getInt("necessary_building_id"),
+                                cardResultSet.getFloat("necessary_building_number"));
+                        tempNecessaryUpgrades.put(cardResultSet.getInt("necessary_upgrade_id"),
+                                cardResultSet.getFloat("necessary_upgrade_number"));
+                        cardResultSet.next();
+                    }
+                    cardResultSet.previous();
+                    setP1Buildings(tempP1Buildings);
+                    setP2Buildings(tempP2Buildings);
+                    setP1Resources(tempP1Resources);
+                    setP2Resources(tempP2Resources);
+                    setP1Upgrades(tempP1Upgrades);
+                    setP2Upgrades(tempP2Upgrades);
+                    setNecessaryBuildings(tempNecessaryBuildings);
+                    setNecessaryUpgrades(tempNecessaryUpgrades);
+                    }});
             }
             return card;
         });
-    }
-
-    private Map parseToMap(String[] parsedP1BuildingId, String[] parsedP1BuildingNumber) {
-        Integer iterator = 0;
-        Map<Integer, Float> map = new HashMap<>();
-        while (iterator < parsedP1BuildingId.length) {
-            map.put(Integer.parseInt(parsedP1BuildingId[iterator]),
-                    Float.parseFloat(parsedP1BuildingNumber[iterator]));
-        }
-        return (map);
     }
 }

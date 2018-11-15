@@ -110,33 +110,37 @@ CREATE TABLE `Card_Building` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`card_id` INT NOT NULL,
 	`building_id` INT NOT NULL,
-	`number` FLOAT
+	`number` FLOAT,
+	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Card_Resource` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`card_id` INT NOT NULL,
+	`resource_set` INT NOT NULL,
 	`resource_id` INT NOT NULL,
-	`number` FLOAT
+	`number` FLOAT,
+	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Card_Upgrade` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`card_id` INT NOT NULL,
 	`upgrade_id` INT NOT NULL,
-	`number` FLOAT
+	`number` FLOAT,
+	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Card_Product` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`card_id` INT NOT NULL,
 	`card_group_id` INT NOT NULL,
-	`p1_card_building_id` INT,
-	`p2_card_building_id` INT,
-	`p1_card_resource_id` INT,
-	`p2_card_resource_id` INT,
-	`p1_card_upgrade_id` INT,
-	`p2_card_upgrade_id` INT,
+	`p1_building_set` INT,
+	`p2_building_set` INT,
+	`p1_resource_set` INT,
+	`p2_resource_set` INT,
+	`p1_upgrade_set` INT,
+	`p2_upgrade_set` INT,
 	`necessary_building_id` INT,
 	`necessary_upgrade_id` INT,
 	`necessary_building_number` FLOAT,

@@ -78,6 +78,7 @@ public class RoomDaoImpl implements RoomDao {
                 return statementForRoom.executeUpdate()> 0 ? true : false;
             });
         });
+
     }
 
     public Boolean leaveRoom(Integer userId) {

@@ -31,9 +31,10 @@ INSERT INTO `Card_Upgrade` (set_id, upgrade_id, number)
     (28,28,1),
     (29,29,1),
     (30,30,1),
-    /*REQUIRED UPGRADES*/
-    (,,),
-    (,,),
-    (,,),
-    (,,),
-
+    /*NECESSARY UPGRADES*/
+    (101,1,1),
+    (102,3,10),
+    (103,5,10),
+    (104,11,10),
+    (105,20,5),
+    (105,21,5);

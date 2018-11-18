@@ -22,12 +22,12 @@ VALUES
     ('19', 'ChiRambo', 'Produce cocks with bazookas'),
     ('20', 'Meditation', 'Produce mana essence'),
     ('21', 'Kill the Witcher', 'Produce cocks magicians'),
-    ('22', 'Life for Ner''Zul', 'Produce cocks prophets')
-    ('23', 'Pesticides', 'Produce cocks prophets')
-    ('24', 'Broiler', 'Produce cocks prophets')
-    ('25', 'Red bull', 'Produce cocks prophets')
-    ('26', 'Muscle gym', 'Produce cocks prophets')
-    ('27', 'New armor', 'Produce cocks prophets')
-    ('28', 'Steel feathers', 'Produce cocks prophets')
-    ('29', 'Armed and dangerous', 'Produce cocks prophets')
-    ('30', 'Disney Princess? Really?', 'Produce cocks prophets')
+    ('22', 'Life for Ner''Zul', 'Produce cocks prophets'),
+    ('23', 'Pesticides', 'Produce cocks prophets'),
+    ('24', 'Broiler', 'Produce cocks prophets'),
+    ('25', 'Red bull', 'Produce cocks prophets'),
+    ('26', 'Muscle gym', 'Produce cocks prophets'),
+    ('27', 'New armor', 'Produce cocks prophets'),
+    ('28', 'Steel feathers', 'Produce cocks prophets'),
+    ('29', 'Armed and dangerous', 'Produce cocks prophets'),
+    ('30', 'Disney Princess? Really?', 'Produce cocks prophets');
